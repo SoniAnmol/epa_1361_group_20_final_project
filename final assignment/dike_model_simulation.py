@@ -10,12 +10,24 @@ from ema_workbench.em_framework.samplers import sample_uncertainties
 from ema_workbench.util import ema_logging
 import time
 from problem_formulation import get_model_for_problem_formulation
+from ema_workbench import save_results
+
+from ema_workbench import (Model, MultiprocessingEvaluator, Policy, Scenario)
+
+
+
+
+#choose problem formulation number, between 0-5
+#each problem formulation has its own list of outcomes
+
+
+
 
 
 if __name__ == '__main__':
     ema_logging.log_to_stderr(ema_logging.INFO)
 
-    dike_model, planning_steps = get_model_for_problem_formulation(0)
+    dike_model, planning_steps = get_model_for_problem_formulation(5)
 
     # Build a user-defined scenario and policy:
     reference_values = {'Bmax': 175, 'Brate': 1.5, 'pfail': 0.5,
@@ -58,10 +70,30 @@ if __name__ == '__main__':
 #    print(end - start)
 #    results = dike_model.outcomes_output
 
-    # series run
-    experiments, outcomes = perform_experiments(dike_model, ref_scenario, 5)
 
-# multiprocessing
-#    with MultiprocessingEvaluator(dike_model) as evaluator:
-#        results = evaluator.perform_experiments(scenarios=10, policies=policy0,
-#                                                uncertainty_sampling='sobol')
+
+    # series run, important to first run only with the sequential evaluator
+    # experiments, outcomes = perform_experiments(dike_model, ref_scenario, 5)
+
+    # start = time.time() 
+    # with MultiprocessingEvaluator(dike_model) as evaluator:
+        # results = evaluator.perform_experiments(scenarios=10, policies=policy0)
+    #                                             
+    # end = time.time()
+    # print(end - start)                                                
+                                                
+                                                 
+    # start = time.time()                                                
+        # multiprocessing random policies
+    with MultiprocessingEvaluator(dike_model) as evaluator:
+        results = evaluator.perform_experiments(scenarios=10, policies=5)
+    # end = time.time()
+    # print(end - start)    
+    
+    # multiprocessing sobol sampling for sensitivity analysis
+    # with MultiprocessingEvaluator(dike_model) as evaluator:
+    #     results = evaluator.perform_experiments(scenarios=10, policies=policy0,
+    #                                             uncertainty_sampling='sobol')   
+    
+    # save_results(results, r'./nopolicy.tar.gz') #create tar file to save results
+
