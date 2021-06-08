@@ -27,15 +27,18 @@ from ema_workbench import (Model, MultiprocessingEvaluator, Policy, Scenario)
 if __name__ == '__main__':
     ema_logging.log_to_stderr(ema_logging.INFO)
 
-    dike_model, planning_steps = get_model_for_problem_formulation(3)
+    dike_model, planning_steps = get_model_for_problem_formulation(7)
 
     # Build a user-defined scenario and policy:
-    # reference_values = {'Bmax': 175, 'Brate': 1.5, 'pfail': 0.5,    #original values
-                        # 'ID flood wave shape': 4, 'planning steps': 2}        
+    reference_values = {'Bmax': 175, 'Brate': 1.5, 'pfail': 0.5,  
+                         'ID flood wave shape': 4, 'planning steps': 2}     #original values     
         
-    reference_values = {'Bmax': 350, 'Brate': 1.5, 'pfail': 0.5,    #values are increased from original
-                        'ID flood wave shape': 4, 'planning steps': 2}
+    high_Bmax_values = {'Bmax': 350, 'Brate': 1.5, 'pfail': 0.5,    
+                        'ID flood wave shape': 4, 'planning steps': 2} #values are increased from original
+    
     reference_values.update({'discount rate {}'.format(n): 3.5 for n in planning_steps})
+    high_Bmax_values.update({'discount rate {}'.format(n): 3.5 for n in planning_steps})
+    
     scen1 = {}
 
     for key in dike_model.uncertainties:
@@ -47,7 +50,18 @@ if __name__ == '__main__':
         else:
             scen1.update({key.name: reference_values[name_split[1]]})
 
+     
+    for key in dike_model.uncertainties:
+        name_split = key.name.split('_')
+
+        if len(name_split) == 1:
+            scen1.update({key.name: high_Bmax_values[key.name]})
+
+        else:
+            scen1.update({key.name: high_Bmax_values[name_split[1]]})
+
     ref_scenario = Scenario('reference', **scen1)
+    high_Bmax_scenario = Scenario('reference', **scen1)
 
     # no dike increase, no warning, none of the rfr
     zero_policy = {'DaysToThreat': 0}
@@ -75,7 +89,7 @@ if __name__ == '__main__':
 
 
 
-    # series run, important to first run only with the sequential evaluator
+    # series run
     experiments, outcomes = perform_experiments(dike_model, ref_scenario, 5)
 
     # start = time.time() 
@@ -87,16 +101,16 @@ if __name__ == '__main__':
                                                 
     # multiprocessing random policies                                             
     
-    start = time.time()                                                   
-    with MultiprocessingEvaluator(dike_model) as evaluator:
-        results = evaluator.perform_experiments(ref_scenario, policies=2000)
-    end = time.time()
-    print(end - start)    
+    # start = time.time()                                                   
+    # with MultiprocessingEvaluator(dike_model) as evaluator:
+    #     results = evaluator.perform_experiments(high_Bmax_scenario, policies=4000)
+    # end = time.time()
+    # print(end - start)    
     
     # multiprocessing sobol sampling for sensitivity analysis
     # with MultiprocessingEvaluator(dike_model) as evaluator:
     #     results = evaluator.perform_experiments(scenarios=10, policies=policy0,
     #                                             uncertainty_sampling='sobol')   
     
-    save_results(results, r'./refscenario_randompolicy_locations.tar.gz') #create tar file to save results
+    #save_results(results, r'./badscenario_randompolicy_locations.tar.gz') #create tar file to save results
 
