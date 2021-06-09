@@ -27,7 +27,7 @@ from ema_workbench import (Model, MultiprocessingEvaluator, Policy, Scenario)
 if __name__ == '__main__':
     ema_logging.log_to_stderr(ema_logging.INFO)
 
-    dike_model, planning_steps = get_model_for_problem_formulation(7)
+    dike_model, planning_steps = get_model_for_problem_formulation(6)
 
     # Build a user-defined scenario and policy:
     reference_values = {'Bmax': 175, 'Brate': 1.5, 'pfail': 0.5,  
@@ -101,11 +101,11 @@ if __name__ == '__main__':
                                                 
     # multiprocessing random policies                                             
     
-    # start = time.time()                                                   
-    # with MultiprocessingEvaluator(dike_model) as evaluator:
-    #     results = evaluator.perform_experiments(high_Bmax_scenario, policies=4000)
-    # end = time.time()
-    # print(end - start)    
+    start = time.time()                                                   
+    with MultiprocessingEvaluator(dike_model) as evaluator:
+        results = evaluator.perform_experiments(high_Bmax_scenario, policies=4000)
+    end = time.time()
+    print(end - start)    
     
     # multiprocessing sobol sampling for sensitivity analysis
     # with MultiprocessingEvaluator(dike_model) as evaluator:

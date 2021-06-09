@@ -313,7 +313,7 @@ def get_model_for_problem_formulation(problem_formulation_id):
                           function=sum_over, kind=direction))
         
         
-        for dike in function.dikelist[0:3]:
+        for dike in function.dikelist[:3]:
             variable_name = []
             for e in ['Expected Annual Damage', 'Dike Investment Costs']:
                 variable_name.extend(['{}_{} {}'.format(dike, e, n)
@@ -331,12 +331,12 @@ def get_model_for_problem_formulation(problem_formulation_id):
 #                                              variable_name=['Total Investment Costs {}'.format(n) for n in function.planning_steps],
 #                                              function=sum_over, kind=direction))
             
-            outcomes.append(ScalarOutcome('RfR Total Costs', 
-                                      variable_name=['RfR Total Costs {}'.format(n) for n in function.planning_steps],
-                                                      function=sum_over, kind=direction))
-            outcomes.append(ScalarOutcome('Expected Evacuation Costs', 
-                                          variable_name=['Expected Evacuation Costs {}'.format(n) for n in function.planning_steps],
-                                          function=sum_over, kind=direction))
+            # outcomes.append(ScalarOutcome('RfR Total Costs', 
+            #                           variable_name=['RfR Total Costs {}'.format(n) for n in function.planning_steps],
+            #                                           function=sum_over, kind=direction))
+            # outcomes.append(ScalarOutcome('Expected Evacuation Costs', 
+            #                               variable_name=['Expected Evacuation Costs {}'.format(n) for n in function.planning_steps],
+            #                               function=sum_over, kind=direction))
 
         dike_model.outcomes = outcomes
 

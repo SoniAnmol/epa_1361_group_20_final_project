@@ -10,12 +10,12 @@ from ema_workbench.util import ema_logging
 from problem_formulation import get_model_for_problem_formulation
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+from ema_workbench import save_results
 
 if __name__ == '__main__':
     ema_logging.log_to_stderr(ema_logging.INFO)
 
-    model, steps = get_model_for_problem_formulation(2)
+    model, steps = get_model_for_problem_formulation(7)
 
     reference_values = {'Bmax': 175, 'Brate': 1.5, 'pfail': 0.5,
                         'discount rate 0': 3.5, 'discount rate 1': 3.5,
@@ -36,12 +36,13 @@ if __name__ == '__main__':
 
     convergence_metrics = [EpsilonProgress()]
 
-    espilon = [1e3] * len(model.outcomes)
-
-    nfe = 200 # proof of principle only, way to low for actual use
+    #espilon = [1e3] * len(model.outcomes)
+    espilon = [0.0005] * len(model.outcomes)
+    
+    nfe = 5000 # original value = 200: proof of principle only, way to low for actual use
 
     with MultiprocessingEvaluator(model) as evaluator:
-        results, convergence = evaluator.optimize(nfe=nfe, searchover='levers',
+        results1, convergence = evaluator.optimize(nfe=nfe, searchover='levers',
                                                   epsilons=espilon,
                                                   convergence=convergence_metrics,
                                                   reference=ref_scenario)
@@ -52,3 +53,7 @@ if __name__ == '__main__':
     ax1.set_xlabel('nr. of generations')
     ax1.set_ylabel('$\epsilon$ progress')
     sns.despine()
+
+
+    # save_results(results, r'./directedsearch.tar.gz')
+    # results.to_csv("directed_search_test.csv")
