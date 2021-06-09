@@ -27,7 +27,7 @@ from ema_workbench import (Model, MultiprocessingEvaluator, Policy, Scenario)
 if __name__ == '__main__':
     ema_logging.log_to_stderr(ema_logging.INFO)
 
-    dike_model, planning_steps = get_model_for_problem_formulation(6)
+    dike_model, planning_steps = get_model_for_problem_formulation(8)
 
     # Build a user-defined scenario and policy:
     reference_values = {'Bmax': 175, 'Brate': 1.5, 'pfail': 0.5,  
@@ -36,10 +36,15 @@ if __name__ == '__main__':
     high_Bmax_values = {'Bmax': 350, 'Brate': 1.5, 'pfail': 0.5,    
                         'ID flood wave shape': 4, 'planning steps': 2} #values are increased from original
     
+    low_pfail_values = {'Bmax': 175, 'Brate': 1.5, 'pfail': 0.1,    
+                        'ID flood wave shape': 4, 'planning steps': 2} #values are increased from original
+    
     reference_values.update({'discount rate {}'.format(n): 3.5 for n in planning_steps})
     high_Bmax_values.update({'discount rate {}'.format(n): 3.5 for n in planning_steps})
-    
+    low_pfail_values.update({'discount rate {}'.format(n): 3.5 for n in planning_steps})
     scen1 = {}
+    scen2 = {}
+    scen3 = {}
 
     for key in dike_model.uncertainties:
         name_split = key.name.split('_')
@@ -55,13 +60,24 @@ if __name__ == '__main__':
         name_split = key.name.split('_')
 
         if len(name_split) == 1:
-            scen1.update({key.name: high_Bmax_values[key.name]})
+            scen2.update({key.name: high_Bmax_values[key.name]})
 
         else:
-            scen1.update({key.name: high_Bmax_values[name_split[1]]})
+            scen2.update({key.name: high_Bmax_values[name_split[1]]})
+            
+    
+    for key in dike_model.uncertainties:
+        name_split = key.name.split('_')
+
+        if len(name_split) == 1:
+            scen3.update({key.name: low_pfail_values[key.name]})
+
+        else:
+            scen3.update({key.name: low_pfail_values[name_split[1]]})
 
     ref_scenario = Scenario('reference', **scen1)
-    high_Bmax_scenario = Scenario('reference', **scen1)
+    high_Bmax_scenario = Scenario('reference', **scen2)
+    low_pfail_scenario = Scenario('reference', **scen3)
 
     # no dike increase, no warning, none of the rfr
     zero_policy = {'DaysToThreat': 0}
@@ -94,23 +110,23 @@ if __name__ == '__main__':
 
     # start = time.time() 
     # with MultiprocessingEvaluator(dike_model) as evaluator:
-    #     results = evaluator.perform_experiments(scenarios=2000, policies=policy0)
+    #     results = evaluator.perform_experiments(scenarios=4000, policies=policy0)
     # #                                             
     # end = time.time()
     # print(end - start)                                                
                                                 
     # multiprocessing random policies                                             
     
-    start = time.time()                                                   
-    with MultiprocessingEvaluator(dike_model) as evaluator:
-        results = evaluator.perform_experiments(high_Bmax_scenario, policies=4000)
-    end = time.time()
-    print(end - start)    
+    # start = time.time()                                                   
+    # with MultiprocessingEvaluator(dike_model) as evaluator:
+    #     results = evaluator.perform_experiments([low_pfail_scenario], policies=4000)
+    # end = time.time()
+    # print(end - start)    
     
     # multiprocessing sobol sampling for sensitivity analysis
     # with MultiprocessingEvaluator(dike_model) as evaluator:
     #     results = evaluator.perform_experiments(scenarios=10, policies=policy0,
     #                                             uncertainty_sampling='sobol')   
     
-    #save_results(results, r'./badscenario_randompolicy_locations.tar.gz') #create tar file to save results
+    # save_results(results, r'./badscenario_randompolicy_locations.tar.gz') #create tar file to save results
 
