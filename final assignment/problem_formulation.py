@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Created on Wed Mar 21 17:34:11 2018
 
@@ -264,10 +263,78 @@ def get_model_for_problem_formulation(problem_formulation_id):
             outcomes.append(ScalarOutcome('Expected Evacuation Costs {}'.format(n), kind=direction))
         dike_model.outcomes = outcomes
         
+        
+    #Province Gelderland problem formulation:
+    # elif problem_formulation_id == 6:
+    #     outcomes = []
+    #     for dike in function.dikelist[0:3]:
+    #         variable_name = []
+    #         for e in [ 'Dike Investment Costs','Expected Annual Damage']:
+    #             variable_name.extend(['{}_{} {}'.format(dike, e, n)
+    #                                           for n in function.planning_steps])
+
+    #         outcomes.append(ScalarOutcome('{} Total Costs'.format(dike),
+    #                                       variable_name=[var for var in variable_name],
+    #                                       function=sum_over, kind=direction))
+                
+    #         outcomes.append(ScalarOutcome('{}_Expected Annual Damage'.format(dike),
+    #                                       variable_name=['{}_Expected Annual Damage {}'.format(dike, n) for n in function.planning_steps],
+    #                                       function=sum_over, kind=direction))
+
+    #         outcomes.append(ScalarOutcome('{}_Expected Number of Deaths'.format(dike),
+    #                                       variable_name=['{}_Expected Number of Deaths {}'.format(dike, n) for n in function.planning_steps],
+    #                                       function=sum_over, kind=direction))
+
+    #         outcomes.append(ScalarOutcome('RfR Total Costs', 
+    #                                   variable_name=['RfR Total Costs {}'.format(n) for n in function.planning_steps],
+    #                                                   function=sum_over, kind=direction))
+            
+    #         outcomes.append(ScalarOutcome('Expected Evacuation Costs', 
+    #                                       variable_name=['Expected Evacuation Costs {}'.format(n) for n in function.planning_steps],
+    #                                       function=sum_over, kind=direction))
+
+    # Province Gelderland problem formulation:
+    elif problem_formulation_id == 7:
+        outcomes = []
+        
+        for i in range(3):
+            dike = function.dikelist[i]
+            variable_name = []
+
+            outcomes.append(ScalarOutcome('{}_Expected Number of Deaths'.format(dike),
+                              variable_name=['{}_Expected Number of Deaths {}'.format(
+                                      dike, n) for n in function.planning_steps],
+                              function=sum_over, kind=direction))
+    
+            outcomes.append(ScalarOutcome('{}_Expected Annual Damage'.format(dike),
+                              variable_name=['{}_Expected Annual Damage {}'.format(
+                                      dike, n) for n in function.planning_steps],
+                              function=sum_over, kind=direction))
+                    
+            outcomes.append(ScalarOutcome('{}_Dike Investment Costs'.format(dike),
+                              variable_name=['{}_Dike Investment Costs {}'.format(
+                                      dike, n) for n in function.planning_steps],
+                              function=sum_over, kind=direction))
+            
+        outcomes.append(ScalarOutcome('RfR Total Costs', 
+                                      variable_name=['RfR Total Costs {}'.format(n
+                                                     ) for n in function.planning_steps],
+                                          function=sum_over, kind=direction))
+        
+        
+        outcomes.append(ScalarOutcome('Expected Evacuation Costs', 
+                                      variable_name=['Expected Evacuation Costs {}'.format(n
+                                                     ) for n in function.planning_steps],
+                                          function=sum_over, kind=direction))
+
+        dike_model.outcomes = outcomes
+            
     else:
         raise TypeError('unknownx identifier')
         
     return dike_model, function.planning_steps
 
-if __name__ == '__main__':
-    get_model_for_problem_formulation(3)
+
+
+
+
