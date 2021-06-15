@@ -265,7 +265,6 @@ def get_model_for_problem_formulation(problem_formulation_id):
         
         
     #Province Gelderland problem formulation:
-
     # elif problem_formulation_id == 6:
     #     outcomes = []
     #     for dike in function.dikelist[0:3]:
@@ -295,7 +294,6 @@ def get_model_for_problem_formulation(problem_formulation_id):
     #                                       function=sum_over, kind=direction))
 
     # Province Gelderland problem formulation:
-
     elif problem_formulation_id == 7:
         outcomes = []
         
@@ -335,3 +333,8 @@ def get_model_for_problem_formulation(problem_formulation_id):
         raise TypeError('unknownx identifier')
         
     return dike_model, function.planning_steps
+
+
+
+
+
