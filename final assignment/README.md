@@ -43,6 +43,6 @@ Files generated during the analysis are stored in respective sub-directory indic
 *(This notebook contains robustness analysis for candidate solution and evaluates its performance under uncertainity)*<br/>
 
 ### **presentations**<br/>
- *(This directory contains the presentation about model and a summary of the results of analysis performed by group_20)*<br/>
+ *(This directory contains the presentation about model and a summary of the results and analysis performed by group_20)*<br/>
 
 
