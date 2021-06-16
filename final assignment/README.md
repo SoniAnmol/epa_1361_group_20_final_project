@@ -14,10 +14,14 @@ This file contains the structure of this repository and some general instruction
 
 ### **analysis_figures**<br/>
  *(This directory contains all the figures generated during the analysis. All the figures are stored in respective directories.)*<br/>
+ > - directed search<br/>
  > - general<br/>
  > - mordm<br/>
+ > - open_exoloration<br/>
  > - salib_lever<br/>
  > - salib_uncertainities<br/>
+
+
 
 ### **data**<br/>
 *(This is a predefined directory conaining important data for the functioning of the model.)*<br/>
