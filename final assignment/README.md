@@ -1,5 +1,5 @@
 # EPA-simmodel
-This file contains the structure of this repository and some general instructions for performing the analysis. This folder is cloned from the repository (epa1361_open)[https://github.com/quaquel/epa1361_open] created for MOdel Based Decision Making (EPA 1361). Some additional folders are added in the repository by group 20.
+This file contains the structure of this repository and some general instructions for performing the analysis. This folder is cloned from the repository [epa1361_open](https://github.com/quaquel/epa1361_open) created for Model Based Decision Making (EPA 1361). Some additional folders are added in the repository by group 20.
 
 # Instructions for evaluator
 - Kindly refer the `notebooks` directory to check the notebooks used for analysis at a glance
