@@ -5,6 +5,7 @@ This file contains the structure of this repository and some general instruction
 - Kindly refer the `notebooks` directory to check the notebooks used for analysis at a glance
 - Jupyter notebooks in `.ipynb` format are present in the root directore (FINAL ASSIGNMENT)
 - The summary of analysis and methodology followed is present in the `presentations` directory
+- An online copy of the report containing all the details of analysis can be found [here](https://www.overleaf.com/project/60c6017ec039e702249ee699)
 - All the assumptions and reasoning behind the analytical chooices are documented in the report submitted with this folder.
 
 # Following is the structure of the repository
