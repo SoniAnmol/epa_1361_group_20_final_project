@@ -52,9 +52,9 @@ Files generated during the analysis are stored in respective sub-directory indic
 
 
 # Contributors (Group 20)
-> - Anmol Soni (5290228)
-> - Elie Azeufack (5231000)
-> - Lekha Nambiar (5200512)
-> - Marco Peretto (5366240)
-> - Roel Diegens (5432529)
-> - Ziad Matar (4670981)
+>- Anmol Soni (5290228)
+>-Elie Azeufack (5231000)
+>- Lekha Nambiar (5200512)
+>- Marco Peretto (5366240)
+>- Roel Degens (5432529)
+>- Ziad Matar (4670981)
