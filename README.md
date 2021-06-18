@@ -5,13 +5,13 @@ This file contains the structure of this repository and some general instruction
 - Kindly refer the `notebooks` directory to check the notebooks used for analysis at a glance
 - Jupyter notebooks in `.ipynb` format are present in the root directore (FINAL ASSIGNMENT)
 - The summary of analysis and methodology followed is present in the `presentations` directory
-- A copy of the report containing all the details of analysis can be found in the `Report` folder
-- All the assumptions and reasoning behind the analytical chooices are documented in the report submitted with this folder.
+- All the assumptions and reasoning behind the analytical chooices are documented in `EPA1361_Report_Group_20.pdf` in the `Report` folder
+- All the files can also be directly downloaded from the `final_assignment_grooup_20.zip folder`
 
 # Following is the structure of the repository
 
 ## **FINAL ASSIGNMENT**<br/>
-*(This directory contains all the python scripts and notebooks to be run for analysis and running the model)*<br/>
+*(This directory contains the zip folder and all the python scripts and notebooks to be run for analysis and running the model)*<br/>
 
 ### **analysis_figures**<br/>
  *(This directory contains all the figures generated during the analysis. All the figures are stored in respective directories.)*<br/>
@@ -51,3 +51,10 @@ Files generated during the analysis are stored in respective sub-directory indic
  *(This directory contains the presentation about model and a summary of the results and analysis performed by group_20)*<br/>
 
 
+# Contributors (Group 20)
+> - Anmol Soni (5290228)
+> - Elie Azeufack (5231000)
+> - Lekha Nambiar (5200512)
+> - Marco Peretto (5366240)
+> - Roel Diegens (5432529)
+> - Ziad Matar (4670981)
